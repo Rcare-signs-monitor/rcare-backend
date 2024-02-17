@@ -21,7 +21,7 @@ public interface SignMapper {
      * @param sign
      */
     @Insert("INSERT INTO sign " +
-            "(heart_rate, respiratory_rate, systolic_pressure, diastolic_pressure, detection_time, member_id) VALUES " +
-            "(#{heartRate}, #{respiratoryRate}, #{systolicPressure}, #{diastolicPressure}, #{detectionTime}, #{memberId})")
+            "(heart_rate, respiratory_rate, systolic_pressure, diastolic_pressure, detect_time, member_id) VALUES " +
+            "(#{heartRate}, #{respiratoryRate}, #{systolicPressure}, #{diastolicPressure}, #{detectTime}, #{memberId})")
     void insert(Sign sign);
 }

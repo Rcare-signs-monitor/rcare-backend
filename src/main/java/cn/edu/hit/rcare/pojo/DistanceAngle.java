@@ -10,13 +10,10 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Sign {
+public class DistanceAngle {
     Integer id;
-    Double heartRate;
-    Double respiratoryRate;
-    Double systolicPressure;
-    Double diastolicPressure;
+    Double distance;
+    Double angle;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime detectTime;
-    Integer memberId;
 }

@@ -2,11 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.edu.hit.rcare.mapper.SignMapper">
-    <select id="list" resultType="cn.edu.hit.rcare.pojo.Sign">
-        select *
-        from sign
-        where member_id=#{id}
+<mapper namespace="cn.edu.hit.rcare.mapper.DistanceAngleMapper">
+    <select id="list" resultType="cn.edu.hit.rcare.pojo.DistanceAngle">
+        select * from distance_angle
         order by detect_time desc
         <if test="num != null">
             limit #{num}
