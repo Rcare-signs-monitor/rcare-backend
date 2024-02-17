@@ -17,9 +17,16 @@ public class MemberController {
 
     @GetMapping("/members")
     public Result list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String address){
-        log.info("查询所有成员: {} {} {} {} {}", name, gender, ageBegin, ageEnd, address);
+        log.info("条件查询所有成员: {} {} {} {} {}", name, gender, ageBegin, ageEnd, address);
         List<Member> members = memberService.list(name, gender, ageBegin, ageEnd, address);
         return Result.success(members);
+    }
+
+    @GetMapping("/members/{id}")
+    public Result searchById(@PathVariable Integer id){
+        log.info("查询成员id{}", id);
+        Member member = memberService.searchById(id);
+        return Result.success(member);
     }
 
     @PostMapping("/members")

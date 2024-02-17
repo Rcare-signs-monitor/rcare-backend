@@ -12,4 +12,6 @@ public interface MemberService {
     void update(Member member);
 
     void delete(List<Integer> ids);
+
+    Member searchById(Integer id);
 }

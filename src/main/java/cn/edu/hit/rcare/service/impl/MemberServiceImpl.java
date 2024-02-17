@@ -33,4 +33,9 @@ public class MemberServiceImpl implements MemberService {
     public void delete(List<Integer> ids) {
         memberMapper.delete(ids);
     }
+
+    @Override
+    public Member searchById(Integer id) {
+        return memberMapper.searchById(id);
+    }
 }

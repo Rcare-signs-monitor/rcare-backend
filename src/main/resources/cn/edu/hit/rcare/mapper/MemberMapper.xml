@@ -3,6 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.hit.rcare.mapper.MemberMapper">
+
+    <!--    按更新成员信息-->
     <update id="update">
         update member
         <set>
@@ -21,12 +23,16 @@
         </set>
         where id=#{id}
     </update>
+
+    <!--    按id列表删除成员-->
     <delete id="delete">
         delete from member where id in
             <foreach collection="ids" item="id" open="(" separator="," close=")">
                 #{id}
             </foreach>
     </delete>
+
+    <!--    条件查询-->
     <select id="list" resultType="cn.edu.hit.rcare.pojo.Member">
         select id, name, gender, age, address from member
         <where>
