@@ -13,4 +13,5 @@ public class Member {
     Short gender;
     Short age;
     String address;
+    String image;
 }

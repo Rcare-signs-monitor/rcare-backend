@@ -32,8 +32,8 @@ public interface MemberMapper {
      * 插入新成员信息
      * @param member
      */
-    @Insert("INSERT INTO member (name, gender, age, address) VALUES " +
-            "(#{name}, #{gender}, #{age}, #{address})")
+    @Insert("INSERT INTO member (name, gender, age, address, image) VALUES " +
+            "(#{name}, #{gender}, #{age}, #{address}, #{image})")
     void insert(Member member);
 
     /**

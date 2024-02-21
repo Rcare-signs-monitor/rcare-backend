@@ -18,7 +18,10 @@
                 age=#{age},
             </if>
             <if test="address != null and address != ''">
-                address=#{address}
+                address=#{address},
+            </if>
+            <if test="image != null and image != ''">
+                image=#{image}
             </if>
         </set>
         where id=#{id}
@@ -34,7 +37,7 @@
 
     <!--    条件查询-->
     <select id="list" resultType="cn.edu.hit.rcare.pojo.Member">
-        select id, name, gender, age, address from member
+        select * from member
         <where>
             <if test="name != null and name != ''">
                 name like concat('%', #{name}, '%')
