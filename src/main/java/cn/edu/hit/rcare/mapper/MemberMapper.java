@@ -1,7 +1,6 @@
 package cn.edu.hit.rcare.mapper;
 
 import cn.edu.hit.rcare.pojo.Member;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -9,31 +8,37 @@ import java.util.List;
 
 @Mapper
 public interface MemberMapper {
-    /**
-     * 条件查询全部成员信息
-     * @param name 姓名
-     * @param gender 性别 0女1男
-     * @param ageBegin 最小年龄
-     * @param ageEnd 最大年龄
-     * @param address 地址
-     * @return
-     */
-    List<Member> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String address);
+
 
     /**
-     * 按id查询成员
-     * @param id
+     * 条件查询病患列表
+     * @param name 病患姓名
+     * @param gender 病患性别
+     * @param ageBegin 最小年龄
+     * @param ageEnd 最大年龄
+     * @param room 病房号
+     * @param num 限制查询条数
+     * @return 病患列表
+     */
+    List<Member> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid);
+
+
+    /**
+     * 按 id 查询病患个人信息
+     * @param id 病患id
      * @return
      */
-    @Select("SELECT * FROM member where id=#{id}")
+    @Select("select id, room, bed, name, gender, age, doctor, day, result, allergy, " +
+            "healing, contact, attention, image, openid " +
+            "from member join room_bed_member rbm on member.id = rbm.member_id " +
+            "where id=#{id}")
     Member searchById(Integer id);
 
     /**
      * 插入新成员信息
      * @param member
      */
-    @Insert("INSERT INTO member (name, gender, age, address, image) VALUES " +
-            "(#{name}, #{gender}, #{age}, #{address}, #{image})")
+
     void insert(Member member);
 
     /**

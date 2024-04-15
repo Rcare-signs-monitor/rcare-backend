@@ -11,12 +11,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Sign {
-    Integer id;
-    Double heartRate;
-    Double respiratoryRate;
-    Double systolicPressure;
-    Double diastolicPressure;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime detectTime;
-    Integer memberId;
+    LocalDateTime time;
+    Double data;
 }
+
+//public class Sign {
+//    Integer id;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+//    LocalDateTime time;
+//    Double heart;
+//    Double respire;
+//    Double sbp;
+//    Double dbp;
+//    Double ecg;
+//}

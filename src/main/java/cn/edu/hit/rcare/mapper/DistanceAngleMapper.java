@@ -1,6 +1,7 @@
 package cn.edu.hit.rcare.mapper;
 
 import cn.edu.hit.rcare.pojo.DistanceAngle;
+import cn.edu.hit.rcare.pojo.DistanceAnglePost;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,14 +15,14 @@ public interface DistanceAngleMapper {
      * @param num 查询记录数
      * @return
      */
-    List<DistanceAngle> list(Integer num);
+    List<DistanceAngle> list(Integer member_id, Integer num);
 
     /**
      * 新增距离角度记录
      * @param distanceAngle
      */
     @Insert("INSERT INTO distance_angle " +
-            "(detect_time, distance, angle) VALUES " +
-            "(#{detectTime}, #{distance}, #{angle})")
-    void add(DistanceAngle distanceAngle);
+            "(member_id, time, distance, angle) VALUES " +
+            "(#{member_id}, now(), #{distance}, #{angle})")
+    void add(DistanceAnglePost distanceAngle);
 }

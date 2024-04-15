@@ -1,6 +1,7 @@
 package cn.edu.hit.rcare.controller;
 
 import cn.edu.hit.rcare.pojo.Member;
+import cn.edu.hit.rcare.pojo.MemberSign;
 import cn.edu.hit.rcare.pojo.Result;
 import cn.edu.hit.rcare.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,9 +17,9 @@ public class MemberController {
     private MemberService memberService;
 
     @GetMapping("/members")
-    public Result list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String address){
-        log.info("条件查询所有成员: {} {} {} {} {}", name, gender, ageBegin, ageEnd, address);
-        List<Member> members = memberService.list(name, gender, ageBegin, ageEnd, address);
+    public Result list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid){
+        log.info("条件查询所有成员: {} {} {} {} {} {}", name, gender, ageBegin, ageEnd, room, num, wid);
+        List<MemberSign> members = memberService.list(name, gender, ageBegin, ageEnd, room, num, wid);
         return Result.success(members);
     }
 

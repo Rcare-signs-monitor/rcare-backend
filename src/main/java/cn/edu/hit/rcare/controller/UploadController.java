@@ -20,7 +20,7 @@ public class UploadController {
       String originalFilename = image.getOriginalFilename();
       String ext = originalFilename.substring(originalFilename.lastIndexOf('.'));
       String filename = UUID.randomUUID().toString() + ext;
-      image.transferTo(new File("~\\rcare\\"+filename));
+      image.transferTo(new File("/home/ubuntu/rcare/"+filename));
 
       return Result.success(filename);
     }

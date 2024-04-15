@@ -3,6 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.hit.rcare.mapper.MemberMapper">
+    <!-- 新建成员信息 -->
+    <insert id="insert">
+        INSERT INTO member (name, gender, age
+            <if test="doctor != null and doctor != ''">, doctor</if>
+            <if test="day != null">, day</if>
+            <if test="result != null and result != ''">, result</if>
+            <if test="allergy != null and allergy != ''">, allergy</if>
+            <if test="healing != null and healing != ''">, healing</if>
+            <if test="contact != null and contact != ''">, contact</if>
+            <if test="attention != null and attention != ''">, attention</if>
+            <if test="image != null and image != ''">, image</if>
+            <if test="openid != null and openid != ''">, openid</if>
+        ) VALUES (#{name}, #{gender}, #{age}
+            <if test="doctor != null and doctor != ''">, #{doctor}</if>
+            <if test="day != null">, #{day}</if>
+            <if test="result != null and result != ''">, #{result}</if>
+            <if test="allergy != null and allergy != ''">, #{allergy}</if>
+            <if test="healing != null and healing != ''">, #{healing}</if>
+            <if test="contact != null and contact != ''">, #{contact}</if>
+            <if test="attention != null and attention != ''">, #{attention}</if>
+            <if test="image != null and image != ''">, #{image}</if>
+            <if test="openid != null and openid != ''">, #{openid}</if>
+        )
+    </insert>
 
     <!--    按更新成员信息-->
     <update id="update">
@@ -17,11 +41,32 @@
             <if test="age != null">
                 age=#{age},
             </if>
-            <if test="address != null and address != ''">
-                address=#{address},
+            <if test="doctor != null and doctor != ''">
+                doctor=#{doctor},
+            </if>
+            <if test="day != null">
+                day=#{day},
+            </if>
+            <if test="result != null and result != ''">
+                result=#{result},
+            </if>
+            <if test="allergy != null and allergy != ''">
+                allergy=#{allergy},
+            </if>
+            <if test="healing != null and healing != ''">
+                healing=#{healing},
+            </if>
+            <if test="contact != null and contact != ''">
+                contact=#{contact},
+            </if>
+            <if test="attention != null and attention != ''">
+                attention=#{attention},
             </if>
             <if test="image != null and image != ''">
-                image=#{image}
+                image=#{image},
+            </if>
+            <if test="openid != null and openid != ''">
+                openid=#{openid}
             </if>
         </set>
         where id=#{id}
@@ -37,7 +82,8 @@
 
     <!--    条件查询-->
     <select id="list" resultType="cn.edu.hit.rcare.pojo.Member">
-        select * from member
+        select member.id, rbm.room, rbm.bed, name, gender, age, doctor, day, result, allergy, healing, contact, attention, image, openid
+        from member join room_bed_member rbm on member.id = rbm.member_id
         <where>
             <if test="name != null and name != ''">
                 name like concat('%', #{name}, '%')
@@ -48,8 +94,11 @@
             <if test="ageBegin != null and ageEnd != null">
                 and age between #{ageBegin} and #{ageEnd}
             </if>
-            <if test="address != null and address != ''">
-                and address like concat('%', #{address}, '%')
+            <if test="room != null">
+                and room=#{room}
+            </if>
+            <if test="wid != null and name != ''">
+                and openid like concat('%', #{wid}, '%')
             </if>
         </where>
         order by id

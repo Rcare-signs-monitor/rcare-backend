@@ -1,8 +1,10 @@
 package cn.edu.hit.rcare.mapper;
 
-import cn.edu.hit.rcare.pojo.Sign;
+import cn.edu.hit.rcare.pojo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -14,14 +16,39 @@ public interface SignMapper {
      * @param num 信息条数
      * @return
      */
-    List<Sign> list(Integer id, Integer num);
+    List<Sign> list(Integer id, Integer num, String type);
 
     /**
      * 新增一条体征记录
      * @param sign
      */
     @Insert("INSERT INTO sign " +
-            "(heart_rate, respiratory_rate, systolic_pressure, diastolic_pressure, detect_time, member_id) VALUES " +
-            "(#{heartRate}, #{respiratoryRate}, #{systolicPressure}, #{diastolicPressure}, #{detectTime}, #{memberId})")
-    void insert(Sign sign);
+            "(member_id, time, type, data) VALUES " +
+            "(#{member_id}, now(), #{type}, #{data})")
+    void insert(SignPost sign);
+
+
+    /**
+     * 按 id 查询体征信息，表格形式返回
+     * @param id
+     * @param num
+     * @return
+     */
+    List<SignTable> listTable(Integer id, Integer num);
+
+
+    /**
+     * 更新临时表，同步插入到体征历史表
+     * @param sign
+     */
+    @Update("update sign_table_temp set time=now(), ${type}=#{data} where member_id=#{member_id}")
+    void updateTmpTable(SignPost sign);
+    @Insert("insert into sign_table(member_id, time, heart, respire, sbp, dbp, ecg) " +
+            "select member_id, time, heart, respire, sbp, dbp, ecg from sign_table_temp where member_id=#{member_id}")
+    void insertTable(SignPost sign);
+
+    @Select("select chest_pain, exercise_angina, heart_disease from sign_table_temp where member_id=#{member_id}")
+    List<Status> status(Integer id);
+
+    void insert4ecg(SignPostEcg ecg);
 }

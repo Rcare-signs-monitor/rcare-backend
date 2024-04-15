@@ -5,9 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Para {
-    Integer para1;
-    Integer para2;
+@NoArgsConstructor
+public class Calling {
+    int id;
+    int data;
 }

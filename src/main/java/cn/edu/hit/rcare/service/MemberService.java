@@ -1,11 +1,12 @@
 package cn.edu.hit.rcare.service;
 
 import cn.edu.hit.rcare.pojo.Member;
+import cn.edu.hit.rcare.pojo.MemberSign;
 
 import java.util.List;
 
 public interface MemberService {
-    List<Member> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String address);
+    List<MemberSign> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid);
 
     void add(Member member);
 

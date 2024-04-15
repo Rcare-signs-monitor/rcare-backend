@@ -7,15 +7,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-/**
- * 距离角度，查询返回格式
- */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class DistanceAngle {
+@NoArgsConstructor
+public class SignTable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime time;
-    Double distance;
-    Double angle;
+    Double heart;
+    Double respire;
+    Double sbp;
+    Double dbp;
+    Double ecg;
 }
