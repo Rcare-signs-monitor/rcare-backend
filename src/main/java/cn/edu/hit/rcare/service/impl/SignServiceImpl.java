@@ -3,6 +3,7 @@ package cn.edu.hit.rcare.service.impl;
 import cn.edu.hit.rcare.mapper.SignMapper;
 import cn.edu.hit.rcare.pojo.*;
 import cn.edu.hit.rcare.service.SignService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Slf4j
 public class SignServiceImpl implements SignService {
     @Autowired
     private SignMapper signMapper;
@@ -32,8 +34,10 @@ public class SignServiceImpl implements SignService {
         String[] validTypes = {"chest_pain", "exercise_angina", "heart_disease"};
         String[] validTypes2 = {"heart", "respire", "sbp", "dbp"};
         String type = sign.getType();
+        log.info(type);
 
         if (Arrays.asList(validTypes).contains(type)) {
+            log.info("111111");
             signMapper.updateTmpTable(sign);
             return true;
         } else if (Arrays.asList(validTypes2).contains(type)) {

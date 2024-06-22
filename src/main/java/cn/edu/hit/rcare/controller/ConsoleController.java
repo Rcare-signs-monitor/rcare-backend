@@ -91,6 +91,22 @@ public class ConsoleController {
         return runCommand(command);
     }
 
+    @GetMapping("/command7")
+    public Result command7() {
+
+        String command = "sudo sh /home/ubuntu/command7.sh";
+
+        return runCommand(command);
+    }
+
+    @GetMapping("/command8")
+    public Result command8() {
+
+        String command = "sudo sh /home/ubuntu/command8.sh";
+
+        return runCommand(command);
+    }
+
     private Result runCommand(String command) {
         try {
             Runtime runtime = Runtime.getRuntime();
