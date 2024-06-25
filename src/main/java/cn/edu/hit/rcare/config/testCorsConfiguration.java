@@ -1,4 +1,4 @@
-package code.space.codespace.config;
+package cn.edu.hit.rcare.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
