@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.edu.hit</groupId>
     <artifactId>rcare</artifactId>
-    <version>0.0.12-SNAPSHOT</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>rcare</name>
     <description>rcare</description>
     <properties>
@@ -48,8 +48,13 @@
             <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
-    </dependencies>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.15.2</version>
+        </dependency>
 
+    </dependencies>
     <build>
         <plugins>
             <plugin>

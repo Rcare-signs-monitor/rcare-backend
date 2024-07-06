@@ -1,0 +1,7 @@
+<configuration>
+    <typeHandlers>
+        <!-- 注册自定义的 TypeHandler -->
+        <typeHandler handler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <typeHandler handler="cn.edu.hit.rcare.mapper.StatusTypeHandler"/>
+    </typeHandlers>
+</configuration>

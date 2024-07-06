@@ -1,7 +1,6 @@
 package cn.edu.hit.rcare.controller;
 
 import cn.edu.hit.rcare.pojo.Result;
-import cn.edu.hit.rcare.pojo.Room;
 import cn.edu.hit.rcare.pojo.RoomSign;
 import cn.edu.hit.rcare.service.RoomService;
 import lombok.extern.slf4j.Slf4j;

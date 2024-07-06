@@ -1,6 +1,7 @@
 package cn.edu.hit.rcare.mapper;
 
 import cn.edu.hit.rcare.pojo.Member;
+import cn.edu.hit.rcare.pojo.MemberSign;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -17,10 +18,9 @@ public interface MemberMapper {
      * @param ageBegin 最小年龄
      * @param ageEnd 最大年龄
      * @param room 病房号
-     * @param num 限制查询条数
      * @return 病患列表
      */
-    List<Member> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid);
+    List<MemberSign> list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, String wid);
 
 
     /**
@@ -52,4 +52,9 @@ public interface MemberMapper {
      * @param ids
      */
     void delete(List<Integer> ids);
+
+    List<MemberSign> list_new(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid);
+
+    @Select("SET SESSION group_concat_max_len = #{value}")
+    void setGroupConcatMaxLen(int value);
 }

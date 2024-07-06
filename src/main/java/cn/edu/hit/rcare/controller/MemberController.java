@@ -19,8 +19,13 @@ public class MemberController {
     @GetMapping("/members")
     public Result list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid){
         log.info("条件查询所有成员: {} {} {} {} {} {}", name, gender, ageBegin, ageEnd, room, num, wid);
-        List<MemberSign> members = memberService.list(name, gender, ageBegin, ageEnd, room, num, wid);
-        return Result.success(members);
+        if(num > 0){
+            List<MemberSign> members = memberService.list(name, gender, ageBegin, ageEnd, room, num, wid);
+            return Result.success(members);
+        }else {
+            List<MemberSign> members = memberService.listOnlyInfo(name, gender, ageBegin, ageEnd, room, wid);
+            return Result.success(members);
+        }
     }
 
     @GetMapping("/members/{id}")

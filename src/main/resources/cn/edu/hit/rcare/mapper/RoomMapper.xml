@@ -10,4 +10,37 @@
             #{id}
         </foreach>
     </delete>
+    <select id="list" resultType="cn.edu.hit.rcare.pojo.RoomSign">
+        WITH LatestSigns AS (
+            SELECT
+                s.member_id,
+                s.type,
+                FORMAT(s.data, 2) as data,
+                ROW_NUMBER() OVER (PARTITION BY s.member_id, s.type ORDER BY s.time DESC) AS rn
+            FROM sign s
+            WHERE
+                s.type IN ('heart', 'respire', 'sbp', 'dbp', 'ecg')
+        )
+        SELECT
+            r.room,
+            r.bed,
+            m.id,
+            m.name,
+            heart_sign.data AS heart,
+            respire_sign.data AS respire,
+            sbp_sign.data AS sbp,
+            dbp_sign.data AS dbp
+        FROM
+            room_bed_member r LEFT JOIN member m ON r.member_id = m.id LEFT JOIN
+                (SELECT member_id, data FROM LatestSigns WHERE type = 'heart' AND rn = 1)
+                heart_sign ON r.member_id = heart_sign.member_id LEFT JOIN
+                (SELECT member_id, data FROM LatestSigns WHERE type = 'respire' AND rn = 1)
+                respire_sign ON r.member_id = respire_sign.member_id LEFT JOIN
+                (SELECT member_id, data FROM LatestSigns WHERE type = 'sbp' AND rn = 1)
+                sbp_sign ON r.member_id = sbp_sign.member_id LEFT JOIN
+                (SELECT member_id, data FROM LatestSigns WHERE type = 'dbp' AND rn = 1)
+                dbp_sign ON r.member_id = dbp_sign.member_id
+        ORDER BY
+            r.room;
+    </select>
 </mapper>

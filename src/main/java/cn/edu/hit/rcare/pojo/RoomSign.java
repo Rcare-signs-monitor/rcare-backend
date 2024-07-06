@@ -12,5 +12,8 @@ public class RoomSign {
     String bed;
     Integer id;
     String name;
-    Signs signs;
+    Double heart;
+    Double respire;
+    Double sbp;
+    Double dbp;
 }

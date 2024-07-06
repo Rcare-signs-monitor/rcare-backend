@@ -81,7 +81,7 @@
     </delete>
 
     <!--    条件查询-->
-    <select id="list" resultType="cn.edu.hit.rcare.pojo.Member">
+    <select id="list" resultMap="MemberSignResultMap">
         select member.id, rbm.room, rbm.bed, name, gender, age, doctor, day, result, allergy, healing, contact, attention, image, openid
         from member join room_bed_member rbm on member.id = rbm.member_id
         <where>
@@ -102,5 +102,79 @@
             </if>
         </where>
         order by id
+    </select>
+
+    <resultMap id="MemberResultMap" type="cn.edu.hit.rcare.pojo.Member">
+        <id property="id" column="id"/>
+        <result property="room" column="room"/>
+        <result property="bed" column="bed"/>
+        <result property="name" column="name"/>
+        <result property="gender" column="gender"/>
+        <result property="age" column="age"/>
+        <result property="doctor" column="doctor"/>
+        <result property="day" column="day"/>
+        <result property="result" column="result"/>
+        <result property="allergy" column="allergy"/>
+        <result property="healing" column="healing"/>
+        <result property="contact" column="contact"/>
+        <result property="attention" column="attention"/>
+        <result property="image" column="image"/>
+        <result property="openid" column="openid"/>
+    </resultMap>
+
+    <resultMap id="SignsListResultMap" type="cn.edu.hit.rcare.pojo.SignsList">
+        <result property="heart" column="heart_signs" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <result property="respire" column="respire_signs" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <result property="sbp" column="sbp_signs" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <result property="dbp" column="dbp_signs" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <result property="ecg" column="ecg_signs" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.JsonTypeHandler"/>
+        <result property="status" column="statuses" jdbcType="VARCHAR" typeHandler="cn.edu.hit.rcare.mapper.StatusTypeHandler"/>
+    </resultMap>
+
+    <resultMap id="MemberSignResultMap" type="cn.edu.hit.rcare.pojo.MemberSign">
+        <association property="info" column="id" javaType="cn.edu.hit.rcare.pojo.Member" resultMap="MemberResultMap"/>
+        <association property="signs" column="id" javaType="cn.edu.hit.rcare.pojo.SignsList" resultMap="SignsListResultMap"/>
+    </resultMap>
+    <select id="list_new" resultMap="MemberSignResultMap">
+        SELECT
+            m.id,
+            m.name,
+            m.gender,
+            m.age,
+            m.doctor,
+            m.day,
+            m.result,
+            m.allergy,
+            m.healing,
+            m.contact,
+            m.attention,
+            m.image,
+            m.openid,
+            rbm.room,
+            rbm.bed,
+            CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'heart' ORDER BY time DESC LIMIT #{num}) s), ']') AS heart_signs,
+            CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'respire' ORDER BY time DESC LIMIT #{num}) s), ']') AS respire_signs,
+            CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'sbp' ORDER BY time DESC LIMIT #{num}) s), ']') AS sbp_signs,
+            CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'dbp' ORDER BY time DESC LIMIT #{num}) s), ']') AS dbp_signs,
+            CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'ecg' ORDER BY time DESC LIMIT 800) s), ']') AS ecg_signs,
+            (SELECT GROUP_CONCAT(CONCAT('{\"chestPain\":\"', st.chest_pain, '\", \"exerciseAngina\":\"', st.exercise_angina, '\", \"heartDisease\":\"', st.heart_disease, '\"}') SEPARATOR ',')
+                         FROM sign_table_temp st WHERE st.member_id = m.id) AS statuses
+        FROM
+            member m
+                JOIN
+            room_bed_member rbm ON m.id = rbm.member_id
+        WHERE
+            (#{name} IS NULL OR m.name LIKE CONCAT('%', #{name}, '%'))
+          AND (#{gender} IS NULL OR m.gender = #{gender})
+          AND (#{ageBegin} IS NULL OR #{ageEnd} IS NULL OR m.age BETWEEN #{ageBegin} AND #{ageEnd})
+          AND (#{room} IS NULL OR rbm.room = #{room})
+          AND (#{wid} IS NULL OR m.openid LIKE CONCAT('%', #{wid}, '%'))
+        ORDER BY
+            m.id
     </select>
 </mapper>

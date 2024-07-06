@@ -15,4 +15,6 @@ public interface MemberService {
     void delete(List<Integer> ids);
 
     Member searchById(Integer id);
+
+    List<MemberSign> listOnlyInfo(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, String wid);
 }
