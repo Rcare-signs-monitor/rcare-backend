@@ -19,10 +19,12 @@ public class MemberController {
     @GetMapping("/members")
     public Result list(String name, Integer gender, Integer ageBegin, Integer ageEnd, String room, Integer num, String wid){
         log.info("条件查询所有成员: {} {} {} {} {} {}", name, gender, ageBegin, ageEnd, room, num, wid);
-        if(num > 0){
+        if(num == null || num > 0){
+            // ecg 永远返回 1024 条
             List<MemberSign> members = memberService.list(name, gender, ageBegin, ageEnd, room, num, wid);
             return Result.success(members);
         }else {
+            // num = 0 时不返回 ecg
             List<MemberSign> members = memberService.listOnlyInfo(name, gender, ageBegin, ageEnd, room, wid);
             return Result.success(members);
         }

@@ -79,7 +79,7 @@ public class ConsoleController {
     @GetMapping("/command5")
     public Result command5() {
 
-        String command = "sudo sh /home/ubuntu/runSignal.sh";
+        String command = "sudo sh /home/ubuntu/command5.sh";
 
         return runCommand(command);
     }
