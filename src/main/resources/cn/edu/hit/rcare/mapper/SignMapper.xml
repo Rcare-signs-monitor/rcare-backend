@@ -13,7 +13,7 @@
         select time, data
         from sign
         where member_id=#{id} and type=#{type}
-        order by time desc
+        order by time desc, id desc
         <if test="num != null">
             limit #{num}
         </if>

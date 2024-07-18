@@ -153,15 +153,15 @@
             rbm.room,
             rbm.bed,
             CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
-                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'heart' ORDER BY time DESC <if test="num != null">LIMIT #{num}</if>) s), ']') AS heart_signs,
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'heart' ORDER BY time DESC, id desc <if test="num != null">LIMIT #{num}</if>) s), ']') AS heart_signs,
             CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
-                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'respire' ORDER BY time DESC <if test="num != null">LIMIT #{num}</if>) s), ']') AS respire_signs,
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'respire' ORDER BY time DESC, id desc <if test="num != null">LIMIT #{num}</if>) s), ']') AS respire_signs,
             CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
-                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'sbp' ORDER BY time DESC <if test="num != null">LIMIT #{num}</if>) s), ']') AS sbp_signs,
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'sbp' ORDER BY time DESC, id desc <if test="num != null">LIMIT #{num}</if>) s), ']') AS sbp_signs,
             CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
-                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'dbp' ORDER BY time DESC <if test="num != null">LIMIT #{num}</if>) s), ']') AS dbp_signs,
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'dbp' ORDER BY time DESC, id desc <if test="num != null">LIMIT #{num}</if>) s), ']') AS dbp_signs,
             CONCAT('[', (SELECT GROUP_CONCAT(CONCAT('{\"time\":\"', s.time, '\", \"data\":\"', FORMAT(s.data, 2), '\"}') SEPARATOR ',')
-                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'ecg' ORDER BY time DESC LIMIT 800) s), ']') AS ecg_signs,
+                         FROM (SELECT time, data FROM sign WHERE member_id = m.id AND type = 'ecg' ORDER BY time DESC, id desc LIMIT 1024) s), ']') AS ecg_signs,
             (SELECT GROUP_CONCAT(CONCAT('{\"chestPain\":\"', st.chest_pain, '\", \"exerciseAngina\":\"', st.exercise_angina, '\", \"heartDisease\":\"', st.heart_disease, '\"}') SEPARATOR ',')
                          FROM sign_table_temp st WHERE st.member_id = m.id) AS statuses
         FROM

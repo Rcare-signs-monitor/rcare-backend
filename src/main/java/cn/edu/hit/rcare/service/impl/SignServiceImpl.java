@@ -23,6 +23,7 @@ public class SignServiceImpl implements SignService {
         List<Sign> sbp = signMapper.list(id, num, "sbp");
         List<Sign> dbp = signMapper.list(id, num, "dbp");
         List<Sign> ecg = signMapper.list(id, 1024, "ecg");
+        log.info("ecg");
         List<Status> statusList = signMapper.status(id);
         Status status = statusList.size() > 0 ? statusList.get(0) : null;
         SignsList signs = new SignsList(heart, respire, sbp, dbp, ecg, status);
@@ -37,7 +38,6 @@ public class SignServiceImpl implements SignService {
         log.info(type);
 
         if (Arrays.asList(validTypes).contains(type)) {
-            log.info("111111");
             signMapper.updateTmpTable(sign);
             return true;
         } else if (Arrays.asList(validTypes2).contains(type)) {

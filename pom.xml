@@ -10,7 +10,7 @@
     </parent>
     <groupId>cn.edu.hit</groupId>
     <artifactId>rcare</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.2-SNAPSHOT</version>
     <name>rcare</name>
     <description>rcare</description>
     <properties>
