@@ -40,7 +40,7 @@
                 (SELECT member_id, data FROM LatestSigns WHERE type = 'sbp' AND rn = 1)
                 sbp_sign ON r.member_id = sbp_sign.member_id LEFT JOIN
                 (SELECT member_id, data FROM LatestSigns WHERE type = 'dbp' AND rn = 1)
-                dbp_sign ON r.member_id = dbp_sign.member_id
+                dbp_sign ON r.member_id = dbp_sign.member_id LEFT JOIN
                 (SELECT member_id, data FROM LatestSigns WHERE type = 'temper' AND rn = 1)
                 temper_sign ON r.member_id = temper_sign.member_id
         ORDER BY

@@ -12,4 +12,10 @@ public interface PatientMapper {
 
     @Select("select calling from sign_table_temp where member_id=#{id}")
     Integer get(Integer id);
+
+    @Update("update sign_table_temp set face=#{data} where member_id=#{id}")
+    void setface(Calling calling);
+
+    @Select("select face from sign_table_temp where member_id=#{id}")
+    Integer getface(Integer id);
 }
