@@ -16,4 +16,5 @@ public class RoomSign {
     Double respire;
     Double sbp;
     Double dbp;
+    Double temper;
 }

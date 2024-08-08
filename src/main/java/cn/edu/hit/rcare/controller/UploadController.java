@@ -13,6 +13,11 @@ import java.util.UUID;
 @Slf4j
 @RestController
 public class UploadController {
+    /**
+     * @param image 用户头像上传
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/upload")
     public Result upload(MultipartFile image) throws IOException {
       log.info("文件上传：{}", image);
@@ -23,5 +28,20 @@ public class UploadController {
       image.transferTo(new File("/home/ubuntu/rcare/"+filename));
 
       return Result.success(filename);
+    }
+
+    /**
+     * @param image 图像识别结果上传
+     * @return
+     * @throws IOException
+     */
+    @PostMapping("/img")
+    public Result upload_img(MultipartFile image) throws IOException {
+        log.info("文件上传：{}", image);
+
+        String filename = "temperature.jpg";
+        image.transferTo(new File("/home/ubuntu/rcare/"+filename));
+
+        return Result.success(filename);
     }
 }

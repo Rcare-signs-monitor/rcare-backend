@@ -19,7 +19,7 @@
                 ROW_NUMBER() OVER (PARTITION BY s.member_id, s.type ORDER BY s.time DESC) AS rn
             FROM sign s
             WHERE
-                s.type IN ('heart', 'respire', 'sbp', 'dbp', 'ecg')
+                s.type IN ('heart', 'respire', 'sbp', 'dbp', 'temper', 'ecg')
         )
         SELECT
             r.room,
@@ -29,7 +29,8 @@
             heart_sign.data AS heart,
             respire_sign.data AS respire,
             sbp_sign.data AS sbp,
-            dbp_sign.data AS dbp
+            dbp_sign.data AS dbp,
+            temper_sign.data AS temper
         FROM
             room_bed_member r LEFT JOIN member m ON r.member_id = m.id LEFT JOIN
                 (SELECT member_id, data FROM LatestSigns WHERE type = 'heart' AND rn = 1)
@@ -40,6 +41,8 @@
                 sbp_sign ON r.member_id = sbp_sign.member_id LEFT JOIN
                 (SELECT member_id, data FROM LatestSigns WHERE type = 'dbp' AND rn = 1)
                 dbp_sign ON r.member_id = dbp_sign.member_id
+                (SELECT member_id, data FROM LatestSigns WHERE type = 'temper' AND rn = 1)
+                temper_sign ON r.member_id = temper_sign.member_id
         ORDER BY
             r.room;
     </select>

@@ -14,6 +14,7 @@ public class SignsList {
     List<Sign> respire;
     List<Sign> sbp;
     List<Sign> dbp;
+    List<Sign> temper;
     List<Sign> ecg;
     Status status;
 }

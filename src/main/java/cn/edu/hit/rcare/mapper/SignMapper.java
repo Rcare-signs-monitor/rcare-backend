@@ -43,8 +43,8 @@ public interface SignMapper {
      */
     @Update("update sign_table_temp set time=now(), ${type}=#{data} where member_id=#{member_id}")
     void updateTmpTable(SignPost sign);
-    @Insert("insert into sign_table(member_id, time, heart, respire, sbp, dbp) " +
-            "select member_id, time, heart, respire, sbp, dbp from sign_table_temp where member_id=#{member_id}")
+    @Insert("insert into sign_table(member_id, time, heart, respire, sbp, dbp, temper) " +
+            "select member_id, time, heart, respire, sbp, dbp, temper from sign_table_temp where member_id=#{member_id}")
     void insertTable(SignPost sign);
 
     @Select("select chest_pain, exercise_angina, heart_disease from sign_table_temp where member_id=#{member_id}")

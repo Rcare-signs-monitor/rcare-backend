@@ -33,7 +33,7 @@ public class SignController {
      * @param sign
      * {
      *     "member_id": 成员id
-     *     "type": ['heart', 'respire', 'sbp', 'dbp', 'ecg',
+     *     "type": ['heart', 'respire', 'sbp', 'dbp', 'ecg', 'temper'
      *              'chest_pain', 'exercise_angina', 'heart_disease']
      * }
      * @return

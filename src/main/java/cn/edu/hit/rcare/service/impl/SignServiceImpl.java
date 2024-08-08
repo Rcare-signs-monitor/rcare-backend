@@ -22,18 +22,19 @@ public class SignServiceImpl implements SignService {
         List<Sign> respire = signMapper.list(id, num, "respire");
         List<Sign> sbp = signMapper.list(id, num, "sbp");
         List<Sign> dbp = signMapper.list(id, num, "dbp");
+        List<Sign> temper = signMapper.list(id, num, "temper");
         List<Sign> ecg = signMapper.list(id, 1024, "ecg");
         log.info("ecg");
         List<Status> statusList = signMapper.status(id);
         Status status = statusList.size() > 0 ? statusList.get(0) : null;
-        SignsList signs = new SignsList(heart, respire, sbp, dbp, ecg, status);
+        SignsList signs = new SignsList(heart, respire, sbp, dbp, temper, ecg, status);
         return signs;
     }
 
     @Override
     public boolean add(SignPost sign) {
         String[] validTypes = {"chest_pain", "exercise_angina", "heart_disease"};
-        String[] validTypes2 = {"heart", "respire", "sbp", "dbp"};
+        String[] validTypes2 = {"heart", "respire", "sbp", "dbp", "temper"};
         String type = sign.getType();
         log.info(type);
 

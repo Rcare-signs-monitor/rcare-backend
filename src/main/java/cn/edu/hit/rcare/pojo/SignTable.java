@@ -17,5 +17,6 @@ public class SignTable {
     Double respire;
     Double sbp;
     Double dbp;
+    Double temper;
     Double ecg;
 }

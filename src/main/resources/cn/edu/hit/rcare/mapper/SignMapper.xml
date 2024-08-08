@@ -19,7 +19,7 @@
         </if>
     </select>
     <select id="listTable" resultType="cn.edu.hit.rcare.pojo.SignTable">
-        select time, heart, respire, sbp, dbp
+        select time, heart, respire, sbp, dbp, temper
         from sign_table
         where member_id=#{id}
         order by time desc

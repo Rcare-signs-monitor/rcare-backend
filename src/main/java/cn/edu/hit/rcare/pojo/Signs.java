@@ -12,5 +12,6 @@ public class Signs {
     Sign respire;
     Sign sbp;
     Sign dbp;
+    Sign temper;
     Sign ecg;
 }
